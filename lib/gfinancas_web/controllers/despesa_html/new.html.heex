@@ -1,0 +1,13 @@
+<div class="container mt-5">
+  <div class="card shadow-lg">
+    <div class="card-header bg-primary text-white">
+      <h2>Nova Despesa</h2>
+    </div>
+    <div class="card-body">
+      <.despesa_form changeset={@changeset} action={~p"/despesas"} class="form-horizontal"/>
+    </div>
+    <div class="card-footer d-flex justify-content-end">
+      <.back navigate={~p"/despesas"} class="btn btn-secondary">Voltar para despesas</.back>
+    </div>
+  </div>
+</div>

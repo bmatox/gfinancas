@@ -1,0 +1,25 @@
+<.header>
+  Lista de Despesas
+  <:actions>
+    <.link href={~p"/despesas/new"}>
+      <.button>Nova despesa</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table id="despesas" rows={@despesas} row_click={&JS.navigate(~p"/despesas/#{&1}")}>
+  <:col :let={despesa} label="Nome"><%= despesa.nome %></:col>
+  <:col :let={despesa} label="Valor">R$ <%= format_currency(despesa.valor) %></:col>
+  <:col :let={despesa} label="Data"><%= format_date(despesa.data) %></:col>
+  <:action :let={despesa}>
+    <div class="sr-only">
+      <.link navigate={~p"/despesas/#{despesa}"}>Mostrar</.link>
+    </div>
+    <.link navigate={~p"/despesas/#{despesa}/edit"}>Editar</.link>
+  </:action>
+  <:action :let={despesa}>
+    <.link href={~p"/despesas/#{despesa}"} method="delete" data-confirm="Tem certeza?">
+      Deletar
+    </.link>
+  </:action>
+</.table>

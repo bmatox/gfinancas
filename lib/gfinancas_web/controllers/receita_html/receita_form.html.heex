@@ -1,0 +1,11 @@
+<.simple_form :let={f} for={@changeset} action={@action}>
+  <.error :if={@changeset.action}>
+    Oops, algo deu errado! Por favor, verifique os erros abaixo.
+  </.error>
+  <.input field={f[:nome]} type="text" label="Nome" />
+  <.input field={f[:valor]} type="number" label="Valor" step="any" />
+  <.input field={f[:data]} type="date" label="Data" />
+  <:actions>
+    <.button>Salvar Receita</.button>
+  </:actions>
+</.simple_form>

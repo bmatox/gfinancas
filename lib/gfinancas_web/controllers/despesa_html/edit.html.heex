@@ -1,0 +1,8 @@
+<.header>
+  Editar Despesa <%= @despesa.id %>
+  <:subtitle>Use este formulário para gerenciar os registros de despesas no seu banco de dados.</:subtitle>
+</.header>
+
+<.despesa_form changeset={@changeset} action={~p"/despesas/#{@despesa}"} />
+
+<.back navigate={~p"/despesas"}>Voltar para despesas</.back>

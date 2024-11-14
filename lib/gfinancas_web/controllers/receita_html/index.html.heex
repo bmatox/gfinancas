@@ -1,0 +1,25 @@
+<.header>
+  Lista de Receitas
+  <:actions>
+    <.link href={~p"/receitas/new"}>
+      <.button>Nova receita</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table id="receitas" rows={@receitas} row_click={&JS.navigate(~p"/receitas/#{&1}")}>
+  <:col :let={receita} label="Nome"><%= receita.nome %></:col>
+  <:col :let={receita} label="Valor">R$ <%= format_currency(receita.valor) %></:col>
+  <:col :let={receita} label="Data"><%= format_date(receita.data) %></:col>
+  <:action :let={receita}>
+    <div class="sr-only">
+      <.link navigate={~p"/receitas/#{receita}"}>Mostrar</.link>
+    </div>
+    <.link navigate={~p"/receitas/#{receita}/edit"}>Editar</.link>
+  </:action>
+  <:action :let={receita}>
+    <.link href={~p"/receitas/#{receita}"} method="delete" data-confirm="Tem certeza?">
+      Deletar
+    </.link>
+  </:action>
+</.table>

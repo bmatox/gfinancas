@@ -1,0 +1,17 @@
+<.header>
+  Despesa <%= @despesa.id %>
+  <:subtitle>Este é um registro de despesa do seu banco de dados.</:subtitle>
+  <:actions>
+    <.link href={~p"/despesas/#{@despesa}/edit"}>
+      <.button>Editar despesa</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Nome"><%= @despesa.nome %></:item>
+  <:item title="Valor"><%= @despesa.valor %></:item>
+  <:item title="Data"><%= @despesa.data %></:item>
+</.list>
+
+<.back navigate={~p"/despesas"}>Voltar para despesas</.back>

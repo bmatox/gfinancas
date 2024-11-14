@@ -1,0 +1,17 @@
+<.header>
+  Receita <%= @receita.id %>
+  <:subtitle>Este é um registro de receita do seu banco de dados.</:subtitle>
+  <:actions>
+    <.link href={~p"/receitas/#{@receita}/edit"}>
+      <.button>Editar receita</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Nome"><%= @receita.nome %></:item>
+  <:item title="Valor"><%= @receita.valor %></:item>
+  <:item title="Data"><%= @receita.data %></:item>
+</.list>
+
+<.back navigate={~p"/receitas"}>Voltar para receitas</.back>

@@ -1,0 +1,8 @@
+<.header>
+  Editar Receita <%= @receita.id %>
+  <:subtitle>Use este formulário para gerenciar os registros de receitas no seu banco de dados.</:subtitle>
+</.header>
+
+<.receita_form changeset={@changeset} action={~p"/receitas/#{@receita}"} />
+
+<.back navigate={~p"/receitas"}>Voltar para receitas</.back>

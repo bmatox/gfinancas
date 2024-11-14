@@ -1,0 +1,13 @@
+<div class="container mt-5">
+  <div class="card shadow-lg">
+    <div class="card-header bg-primary text-white">
+      <h2>Nova Receita</h2>
+    </div>
+    <div class="card-body">
+      <.receita_form changeset={@changeset} action={~p"/receitas"} class="form-horizontal"/>
+    </div>
+    <div class="card-footer d-flex justify-content-end">
+      <.back navigate={~p"/receitas"} class="btn btn-secondary">Voltar para receitas</.back>
+    </div>
+  </div>
+</div>
