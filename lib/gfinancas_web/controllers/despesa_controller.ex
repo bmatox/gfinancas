@@ -4,9 +4,10 @@ defmodule GfinancasWeb.DespesaController do
   alias Gfinancas.Finance
   alias Gfinancas.Finance.Despesa
 
-  def index(conn, _params) do
-    despesas = Finance.list_despesas()
-    render(conn, :index, despesas: despesas)
+  @spec index(Plug.Conn.t(), nil | maybe_improper_list() | map()) :: Plug.Conn.t()
+  def index(conn, params) do
+    despesas = Finance.list_despesas(params)
+    render(conn, :index, despesas: despesas, mes: params["mes"], inicio: params["inicio"], fim: params["fim"], order: params["order"])
   end
 
   def new(conn, _params) do
@@ -18,7 +19,7 @@ defmodule GfinancasWeb.DespesaController do
     case Finance.create_despesa(despesa_params) do
       {:ok, despesa} ->
         conn
-        |> put_flash(:info, "Despesa created successfully.")
+        |> put_flash(:info, "Despesa criada com sucesso.")
         |> redirect(to: ~p"/despesas/#{despesa}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -43,7 +44,7 @@ defmodule GfinancasWeb.DespesaController do
     case Finance.update_despesa(despesa, despesa_params) do
       {:ok, despesa} ->
         conn
-        |> put_flash(:info, "Despesa updated successfully.")
+        |> put_flash(:info, "Despesa atualizada com sucesso.")
         |> redirect(to: ~p"/despesas/#{despesa}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -56,7 +57,7 @@ defmodule GfinancasWeb.DespesaController do
     {:ok, _despesa} = Finance.delete_despesa(despesa)
 
     conn
-    |> put_flash(:info, "Despesa deleted successfully.")
+    |> put_flash(:info, "Despesa excluída com sucesso.")
     |> redirect(to: ~p"/despesas")
   end
 end

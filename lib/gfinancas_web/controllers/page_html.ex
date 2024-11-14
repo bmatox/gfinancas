@@ -6,5 +6,7 @@ defmodule GfinancasWeb.PageHTML do
   """
   use GfinancasWeb, :html
 
+  import Phoenix.HTML
+
   embed_templates "page_html/*"
 end

@@ -5,104 +5,7 @@ defmodule Gfinancas.Finance do
 
   import Ecto.Query, warn: false
   alias Gfinancas.Repo
-
-  alias Gfinancas.Finance.Receitas
-
-  @doc """
-  Returns the list of receita.
-
-  ## Examples
-
-      iex> list_receita()
-      [%Receitas{}, ...]
-
-  """
-  def list_receita do
-    Repo.all(Receitas)
-  end
-
-  @doc """
-  Gets a single receitas.
-
-  Raises `Ecto.NoResultsError` if the Receitas does not exist.
-
-  ## Examples
-
-      iex> get_receitas!(123)
-      %Receitas{}
-
-      iex> get_receitas!(456)
-      ** (Ecto.NoResultsError)
-
-  """
-  def get_receitas!(id), do: Repo.get!(Receitas, id)
-
-  @doc """
-  Creates a receitas.
-
-  ## Examples
-
-      iex> create_receitas(%{field: value})
-      {:ok, %Receitas{}}
-
-      iex> create_receitas(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def create_receitas(attrs \\ %{}) do
-    %Receitas{}
-    |> Receitas.changeset(attrs)
-    |> Repo.insert()
-  end
-
-  @doc """
-  Updates a receitas.
-
-  ## Examples
-
-      iex> update_receitas(receitas, %{field: new_value})
-      {:ok, %Receitas{}}
-
-      iex> update_receitas(receitas, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def update_receitas(%Receitas{} = receitas, attrs) do
-    receitas
-    |> Receitas.changeset(attrs)
-    |> Repo.update()
-  end
-
-  @doc """
-  Deletes a receitas.
-
-  ## Examples
-
-      iex> delete_receitas(receitas)
-      {:ok, %Receitas{}}
-
-      iex> delete_receitas(receitas)
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def delete_receitas(%Receitas{} = receitas) do
-    Repo.delete(receitas)
-  end
-
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking receitas changes.
-
-  ## Examples
-
-      iex> change_receitas(receitas)
-      %Ecto.Changeset{data: %Receitas{}}
-
-  """
-  def change_receitas(%Receitas{} = receitas, attrs \\ %{}) do
-    Receitas.changeset(receitas, attrs)
-  end
-
-  alias Gfinancas.Finance.Receita
+  alias Gfinancas.Finance.{Receita, Despesa}
 
   @doc """
   Returns the list of receitas.
@@ -113,188 +16,27 @@ defmodule Gfinancas.Finance do
       [%Receita{}, ...]
 
   """
-  def list_receitas do
-    Repo.all(Receita)
+  def list_receitas(params \\ %{}) do
+    Receita
+    |> filtrar_por_mes(params["mes"])
+    |> filtrar_por_periodo(params["inicio"], params["fim"])
+    |> ordenar_receitas(params["order"])
+    |> Repo.all()
   end
 
-  @doc """
-  Gets a single receita.
-
-  Raises `Ecto.NoResultsError` if the Receita does not exist.
-
-  ## Examples
-
-      iex> get_receita!(123)
-      %Receita{}
-
-      iex> get_receita!(456)
-      ** (Ecto.NoResultsError)
-
-  """
-  def get_receita!(id), do: Repo.get!(Receita, id)
-
-  @doc """
-  Creates a receita.
-
-  ## Examples
-
-      iex> create_receita(%{field: value})
-      {:ok, %Receita{}}
-
-      iex> create_receita(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def create_receita(attrs \\ %{}) do
-    %Receita{}
-    |> Receita.changeset(attrs)
-    |> Repo.insert()
+  defp filtrar_por_mes(query, nil), do: query
+  defp filtrar_por_mes(query, mes) do
+    from r in query, where: fragment("date_part('month', ?) = ?", r.data, ^String.to_integer(String.slice(mes, 5, 2)))
   end
 
-  @doc """
-  Updates a receita.
-
-  ## Examples
-
-      iex> update_receita(receita, %{field: new_value})
-      {:ok, %Receita{}}
-
-      iex> update_receita(receita, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def update_receita(%Receita{} = receita, attrs) do
-    receita
-    |> Receita.changeset(attrs)
-    |> Repo.update()
+  defp filtrar_por_periodo(query, nil, nil), do: query
+  defp filtrar_por_periodo(query, inicio, fim) do
+    from r in query, where: r.data >= ^inicio and r.data <= ^fim
   end
 
-  @doc """
-  Deletes a receita.
-
-  ## Examples
-
-      iex> delete_receita(receita)
-      {:ok, %Receita{}}
-
-      iex> delete_receita(receita)
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def delete_receita(%Receita{} = receita) do
-    Repo.delete(receita)
-  end
-
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking receita changes.
-
-  ## Examples
-
-      iex> change_receita(receita)
-      %Ecto.Changeset{data: %Receita{}}
-
-  """
-  def change_receita(%Receita{} = receita, attrs \\ %{}) do
-    Receita.changeset(receita, attrs)
-  end
-
-  alias Gfinancas.Finance.Despesas
-
-  @doc """
-  Returns the list of despesa.
-
-  ## Examples
-
-      iex> list_despesa()
-      [%Despesas{}, ...]
-
-  """
-  def list_despesa do
-    Repo.all(Despesas)
-  end
-
-  @doc """
-  Gets a single despesas.
-
-  Raises `Ecto.NoResultsError` if the Despesas does not exist.
-
-  ## Examples
-
-      iex> get_despesas!(123)
-      %Despesas{}
-
-      iex> get_despesas!(456)
-      ** (Ecto.NoResultsError)
-
-  """
-  def get_despesas!(id), do: Repo.get!(Despesas, id)
-
-  @doc """
-  Creates a despesas.
-
-  ## Examples
-
-      iex> create_despesas(%{field: value})
-      {:ok, %Despesas{}}
-
-      iex> create_despesas(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def create_despesas(attrs \\ %{}) do
-    %Despesas{}
-    |> Despesas.changeset(attrs)
-    |> Repo.insert()
-  end
-
-  @doc """
-  Updates a despesas.
-
-  ## Examples
-
-      iex> update_despesas(despesas, %{field: new_value})
-      {:ok, %Despesas{}}
-
-      iex> update_despesas(despesas, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def update_despesas(%Despesas{} = despesas, attrs) do
-    despesas
-    |> Despesas.changeset(attrs)
-    |> Repo.update()
-  end
-
-  @doc """
-  Deletes a despesas.
-
-  ## Examples
-
-      iex> delete_despesas(despesas)
-      {:ok, %Despesas{}}
-
-      iex> delete_despesas(despesas)
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def delete_despesas(%Despesas{} = despesas) do
-    Repo.delete(despesas)
-  end
-
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking despesas changes.
-
-  ## Examples
-
-      iex> change_despesas(despesas)
-      %Ecto.Changeset{data: %Despesas{}}
-
-  """
-  def change_despesas(%Despesas{} = despesas, attrs \\ %{}) do
-    Despesas.changeset(despesas, attrs)
-  end
-
-  alias Gfinancas.Finance.Despesa
+  defp ordenar_receitas(query, "maiores"), do: from r in query, order_by: [desc: r.valor]
+  defp ordenar_receitas(query, "menores"), do: from r in query, order_by: [asc: r.valor]
+  defp ordenar_receitas(query, _), do: query
 
   @doc """
   Returns the list of despesas.
@@ -305,87 +47,60 @@ defmodule Gfinancas.Finance do
       [%Despesa{}, ...]
 
   """
-  def list_despesas do
-    Repo.all(Despesa)
+  def list_despesas(params \\ %{}) do
+    Despesa
+    |> filtrar_por_mes(params["mes"])
+    |> filtrar_por_periodo(params["inicio"], params["fim"])
+    |> ordenar_despesas(params["order"])
+    |> Repo.all()
   end
 
-  @doc """
-  Gets a single despesa.
+  defp ordenar_despesas(query, "maiores"), do: from d in query, order_by: [desc: d.valor]
+  defp ordenar_despesas(query, "menores"), do: from d in query, order_by: [asc: d.valor]
+  defp ordenar_despesas(query, _), do: query
 
-  Raises `Ecto.NoResultsError` if the Despesa does not exist.
+  # Funções para Receitas
+  def get_receita!(id), do: Repo.get!(Receita, id)
 
-  ## Examples
+  def create_receita(attrs \\ %{}) do
+    %Receita{}
+    |> Receita.changeset(attrs)
+    |> Repo.insert()
+  end
 
-      iex> get_despesa!(123)
-      %Despesa{}
+  def update_receita(%Receita{} = receita, attrs) do
+    receita
+    |> Receita.changeset(attrs)
+    |> Repo.update()
+  end
 
-      iex> get_despesa!(456)
-      ** (Ecto.NoResultsError)
+  def delete_receita(%Receita{} = receita) do
+    Repo.delete(receita)
+  end
 
-  """
+  def change_receita(%Receita{} = receita, attrs \\ %{}) do
+    Receita.changeset(receita, attrs)
+  end
+
+  # Funções para Despesas
   def get_despesa!(id), do: Repo.get!(Despesa, id)
 
-  @doc """
-  Creates a despesa.
-
-  ## Examples
-
-      iex> create_despesa(%{field: value})
-      {:ok, %Despesa{}}
-
-      iex> create_despesa(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
   def create_despesa(attrs \\ %{}) do
     %Despesa{}
     |> Despesa.changeset(attrs)
     |> Repo.insert()
   end
 
-  @doc """
-  Updates a despesa.
-
-  ## Examples
-
-      iex> update_despesa(despesa, %{field: new_value})
-      {:ok, %Despesa{}}
-
-      iex> update_despesa(despesa, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
   def update_despesa(%Despesa{} = despesa, attrs) do
     despesa
     |> Despesa.changeset(attrs)
     |> Repo.update()
   end
 
-  @doc """
-  Deletes a despesa.
-
-  ## Examples
-
-      iex> delete_despesa(despesa)
-      {:ok, %Despesa{}}
-
-      iex> delete_despesa(despesa)
-      {:error, %Ecto.Changeset{}}
-
-  """
   def delete_despesa(%Despesa{} = despesa) do
     Repo.delete(despesa)
   end
 
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking despesa changes.
-
-  ## Examples
-
-      iex> change_despesa(despesa)
-      %Ecto.Changeset{data: %Despesa{}}
-
-  """
   def change_despesa(%Despesa{} = despesa, attrs \\ %{}) do
     Despesa.changeset(despesa, attrs)
   end

@@ -4,9 +4,10 @@ defmodule GfinancasWeb.ReceitaController do
   alias Gfinancas.Finance
   alias Gfinancas.Finance.Receita
 
-  def index(conn, _params) do
-    receitas = Finance.list_receitas()
-    render(conn, :index, receitas: receitas)
+  @spec index(Plug.Conn.t(), nil | maybe_improper_list() | map()) :: Plug.Conn.t()
+  def index(conn, params) do
+    receitas = Finance.list_receitas(params)
+    render(conn, :index, receitas: receitas, mes: params["mes"], inicio: params["inicio"], fim: params["fim"], order: params["order"])
   end
 
   def new(conn, _params) do

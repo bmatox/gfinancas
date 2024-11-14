@@ -1,6 +1,7 @@
 defmodule Gfinancas.Finance.Despesa do
   use Ecto.Schema
   import Ecto.Changeset
+  import Ecto.Query
 
   schema "despesas" do
     field :data, :date
@@ -15,5 +16,9 @@ defmodule Gfinancas.Finance.Despesa do
     despesa
     |> cast(attrs, [:nome, :valor, :data])
     |> validate_required([:nome, :valor, :data])
+  end
+
+  def get_total do
+    from(d in __MODULE__, select: sum(d.valor)) |> Gfinancas.Repo.one() || Decimal.new(0)
   end
 end

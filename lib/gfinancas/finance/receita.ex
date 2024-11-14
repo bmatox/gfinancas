@@ -1,6 +1,7 @@
 defmodule Gfinancas.Finance.Receita do
   use Ecto.Schema
   import Ecto.Changeset
+  import Ecto.Query
 
   schema "receitas" do
     field :data, :date
@@ -15,5 +16,9 @@ defmodule Gfinancas.Finance.Receita do
     receita
     |> cast(attrs, [:nome, :valor, :data])
     |> validate_required([:nome, :valor, :data])
+  end
+
+  def get_total do
+    from(r in __MODULE__, select: sum(r.valor)) |> Gfinancas.Repo.one() || Decimal.new(0)
   end
 end
