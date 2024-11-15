@@ -16,28 +16,46 @@ defmodule Gfinancas.Finance do
       [%Receita{}, ...]
 
   """
-  def list_receitas(params \\ %{}) do
-    Receita
-    |> filtrar_por_mes(params["mes"])
-    |> filtrar_por_periodo(params["inicio"], params["fim"])
-    |> ordenar_receitas(params["order"])
-    |> Repo.all()
-  end
+def list_receitas(params \\ %{}) do
+  Receita
+  |> filtrar_por_mes(params["mes"])
+  |> filtrar_por_periodo(params["inicio"], params["fim"])
+  |> ordenar_receitas(params["order"])
+  |> Repo.all()
+end
 
-  defp filtrar_por_mes(query, nil), do: query
-  defp filtrar_por_mes(query, mes) do
-    from r in query, where: fragment("date_part('month', ?) = ?", r.data, ^String.to_integer(String.slice(mes, 5, 2)))
-  end
+defp filtrar_por_mes(query, nil), do: query
+defp filtrar_por_mes(query, ""), do: query
+defp filtrar_por_mes(query, mes) do
+  IO.inspect(mes, label: "Valor do Mês")
+  from r in query, where: fragment("date_part('month', ?) = ?", r.data, ^String.to_integer(String.slice(mes, 5, 2)))
+end
 
-  defp filtrar_por_periodo(query, nil, nil), do: query
-  defp filtrar_por_periodo(query, inicio, fim) do
-    from r in query, where: r.data >= ^inicio and r.data <= ^fim
-  end
+defp filtrar_por_periodo(query, nil, nil), do: query
+defp filtrar_por_periodo(query, inicio, fim) when inicio == "" and fim == "" do
+  query
+end
+defp filtrar_por_periodo(query, inicio, "") when is_binary(inicio) and inicio != "" do
+  from r in query, where: r.data >= ^inicio
+end
+defp filtrar_por_periodo(query, "", fim) when is_binary(fim) and fim != "" do
+  from r in query, where: r.data <= ^fim
+end
+defp filtrar_por_periodo(query, inicio, fim) do
+  from r in query, where: r.data >= ^inicio and r.data <= ^fim
+end
 
-  defp ordenar_receitas(query, "maiores"), do: from r in query, order_by: [desc: r.valor]
-  defp ordenar_receitas(query, "menores"), do: from r in query, order_by: [asc: r.valor]
-  defp ordenar_receitas(query, _), do: query
+defp ordenar_receitas(query, nil), do: query
+defp ordenar_receitas(query, ""), do: query
+defp ordenar_receitas(query, "maiores") do
+  from r in query, order_by: [desc: r.valor]
+end
+defp ordenar_receitas(query, "menores") do
+  from r in query, order_by: [asc: r.valor]
+end
+defp ordenar_receitas(query, order) when order not in ["maiores", "menores"], do: query
 
+  @spec list_despesas(nil | maybe_improper_list() | map()) :: any()
   @doc """
   Returns the list of despesas.
 
@@ -47,17 +65,53 @@ defmodule Gfinancas.Finance do
       [%Despesa{}, ...]
 
   """
-  def list_despesas(params \\ %{}) do
-    Despesa
-    |> filtrar_por_mes(params["mes"])
-    |> filtrar_por_periodo(params["inicio"], params["fim"])
-    |> ordenar_despesas(params["order"])
-    |> Repo.all()
-  end
+@spec list_despesas(nil | maybe_improper_list() | map()) :: any()
+@doc """
+Returns the list of despesas.
 
-  defp ordenar_despesas(query, "maiores"), do: from d in query, order_by: [desc: d.valor]
-  defp ordenar_despesas(query, "menores"), do: from d in query, order_by: [asc: d.valor]
-  defp ordenar_despesas(query, _), do: query
+## Examples
+
+    iex> list_despesas()
+    [%Despesa{}, ...]
+
+"""
+def list_despesas(params \\ %{}) do
+  Despesa
+  |> filtrar_por_mes(params["mes"])
+  |> filtrar_por_periodo(params["inicio"], params["fim"])
+  |> ordenar_despesas(params["order"])
+  |> Repo.all()
+end
+
+defp filtrar_por_mes(query, nil), do: query
+defp filtrar_por_mes(query, ""), do: query
+defp filtrar_por_mes(query, mes) do
+  IO.inspect(mes, label: "Valor do Mês")
+  from d in query, where: fragment("date_part('month', ?) = ?", d.data, ^String.to_integer(String.slice(mes, 5, 2)))
+end
+
+defp filtrar_por_periodo(query, nil, nil), do: query
+defp filtrar_por_periodo(query, "", ""), do: query
+defp filtrar_por_periodo(query, inicio, "") when is_binary(inicio) and inicio != "" do
+  from d in query, where: d.data >= ^inicio
+end
+defp filtrar_por_periodo(query, "", fim) when is_binary(fim) and fim != "" do
+  from d in query, where: d.data <= ^fim
+end
+defp filtrar_por_periodo(query, inicio, fim) do
+  from d in query, where: d.data >= ^inicio and d.data <= ^fim
+end
+
+defp ordenar_despesas(query, nil), do: query
+defp ordenar_despesas(query, ""), do: query
+defp ordenar_despesas(query, "maiores") do
+  from d in query, order_by: [desc: d.valor]
+end
+defp ordenar_despesas(query, "menores") do
+  from d in query, order_by: [asc: d.valor]
+end
+defp ordenar_despesas(query, _), do: query
+
 
   # Funções para Receitas
   def get_receita!(id), do: Repo.get!(Receita, id)

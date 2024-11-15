@@ -19,7 +19,7 @@ defmodule GfinancasWeb.ReceitaController do
     case Finance.create_receita(receita_params) do
       {:ok, receita} ->
         conn
-        |> put_flash(:info, "Receita created successfully.")
+        |> put_flash(:info, "Receita criada com sucesso.")
         |> redirect(to: ~p"/receitas/#{receita}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -44,7 +44,7 @@ defmodule GfinancasWeb.ReceitaController do
     case Finance.update_receita(receita, receita_params) do
       {:ok, receita} ->
         conn
-        |> put_flash(:info, "Receita updated successfully.")
+        |> put_flash(:info, "Receita atualizada com sucesso.")
         |> redirect(to: ~p"/receitas/#{receita}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -57,7 +57,7 @@ defmodule GfinancasWeb.ReceitaController do
     {:ok, _receita} = Finance.delete_receita(receita)
 
     conn
-    |> put_flash(:info, "Receita deleted successfully.")
+    |> put_flash(:info, "Receita deletada com sucesso.")
     |> redirect(to: ~p"/receitas")
   end
 end

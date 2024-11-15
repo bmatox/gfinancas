@@ -57,7 +57,7 @@ defmodule GfinancasWeb.DespesaController do
     {:ok, _despesa} = Finance.delete_despesa(despesa)
 
     conn
-    |> put_flash(:info, "Despesa excluída com sucesso.")
+    |> put_flash(:info, "Despesa deletada com sucesso.")
     |> redirect(to: ~p"/despesas")
   end
 end
