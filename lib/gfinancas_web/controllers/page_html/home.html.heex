@@ -1,37 +1,41 @@
 <.flash_group flash={@flash} />
 
 <!-- Adicionando a barra superior -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark shadow-0">
   <div class="container d-flex justify-content-center">
-    <a class="navbar-brand font-bold text-center" href="#">GFinancas</a>
+    <a class="navbar-brand" href="#">GFinancas</a>
   </div>
 </nav>
 
-<div class="container mx-auto mt-4">
-  <h1 class="mb-4 text-2xl font-bold">Resumo Financeiro</h1>
-  <div class="resumo-financeiro p-4 mb-4 bg-light border rounded-lg shadow-md">
-    <p>Receitas: R$ <%= @total_receitas %></p>
-    <p>Despesas: R$ <%= @total_despesas %></p>
-    <p>Saldo: R$ <%= @saldo %></p>
-  </div>
-
-  <div>
-    <h2 class="text-xl font-semibold">Categorias</h2>
-    <%= if function_exported?(Phoenix.HTML.Link, :link, 2) do %>
-      <%= Phoenix.HTML.Link.link "Receitas", to: Routes.receita_path(@conn, :index), class: "btn btn-primary mr-2" %>
-      <%= Phoenix.HTML.Link.link "Despesas", to: Routes.despesa_path(@conn, :index), class: "btn btn-primary" %>
-    <% else %>
-      <p>Link function not available.</p>
-    <% end %>
-  </div>
-
-  <div class="mt-4">
-    <h2 class="text-xl font-semibold">Ações Rápidas</h2>
-    <%= if function_exported?(Phoenix.HTML.Link, :link, 2) do %>
-      <%= Phoenix.HTML.Link.link "Adicionar Receita", to: Routes.receita_path(@conn, :new), class: "btn btn-success mr-2" %>
-      <%= Phoenix.HTML.Link.link "Adicionar Despesa", to: Routes.despesa_path(@conn, :new), class: "btn btn-success" %>
-    <% else %>
-      <p>Link function not available.</p>
-    <% end %>
+<!-- Container principal -->
+<div class="container my-4">
+  <h1 class="mb-4 resumo-financeiro-titulo">Resumo Financeiro</h1>
+  <div class="resumo-financeiro p-4 mb-4 bg-light border rounded-lg shadow">
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <div class="card text-white bg-success">
+          <div class="card-header">Receitas</div>
+          <div class="card-body">
+            <h5 class="card-title">R$ <%= @total_receitas %></h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="card text-white bg-danger">
+          <div class="card-header">Despesas</div>
+          <div class="card-body">
+            <h5 class="card-title">R$ <%= @total_despesas %></h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="card text-white bg-info">
+          <div class="card-header">Saldo</div>
+          <div class="card-body">
+            <h5 class="card-title">R$ <%= @saldo %></h5>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

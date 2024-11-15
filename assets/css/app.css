@@ -4,3 +4,54 @@
 @import "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css";
 
 /* This file is for your main application CSS */
+
+/* Fundo da Página */
+body {
+  background-color: #0B192C; /* Fundo em tom de azul profundo */
+}
+
+/* Navbar Customization */
+.navbar {
+  background-color: #1E3E62; /* Navbar em tom de azul escuro */
+}
+
+.navbar-brand {
+  font-size: 2rem; /* Maior */
+  font-weight: bold; /* Negrito */
+  letter-spacing: 2px; /* Espaçamento entre letras */
+  color: #FF6500; /* Cor laranja para a marca */
+}
+
+.navbar-brand:hover {
+  color: #FF6500; /* Cor laranja para o hover */
+}
+
+/* Título Resumo Financeiro */
+.resumo-financeiro-titulo {
+  font-size: 2.0rem; /* Maior */
+  font-weight: bold; /* Negrito */
+  text-align: center;
+  color: #FF6500; /* Cor laranja */
+}
+
+/* Estilização dos Cards */
+.card-header {
+  font-weight: bold;
+  text-align: center; /* Centraliza os nomes */
+}
+
+.card-body {
+  text-align: center; /* Centraliza os valores */
+}
+
+.card.bg-success {
+  background-color: #FF6500; /* Cor laranja */
+}
+
+.card.bg-danger {
+  background-color: #1E3E62; /* Cor azul escuro */
+}
+
+.card.bg-info {
+  background-color: #000000; /* Cor preta */
+}
