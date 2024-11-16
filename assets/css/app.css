@@ -5,14 +5,10 @@
 
 /* This file is for your main application CSS */
 
-/* Fundo da Página */
-body {
-  background-color: #0B192C; /* Fundo em tom de azul profundo */
-}
-
 /* Navbar Customization */
 .navbar {
-  background-color: #1E3E62; /* Navbar em tom de azul escuro */
+  background-color: #002855; /* Azul marinho */
+  width: 100%; /* Ocupa a largura total */
 }
 
 .navbar-brand {
@@ -31,27 +27,67 @@ body {
   font-size: 2.0rem; /* Maior */
   font-weight: bold; /* Negrito */
   text-align: center;
-  color: #FF6500; /* Cor laranja */
+  color: #002855; 
+  margin-top: 120px; /* Adiciona uma margem superior para substituir o separador */
 }
 
 /* Estilização dos Cards */
 .card-header {
   font-weight: bold;
   text-align: center; /* Centraliza os nomes */
+  font-size: 1.20rem; /* Aumenta o tamanho da fonte */
+  color: #ffffff; /* Cor do texto */
+  padding: 10px; /* Adiciona um espaçamento interno */
+  border-radius: 8px 8px 0 0; /* Arredonda os cantos superiores */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Adiciona uma leve sombra */
 }
 
 .card-body {
   text-align: center; /* Centraliza os valores */
+  font-weight: bold;
 }
 
 .card.bg-success {
   background-color: #FF6500; /* Cor laranja */
+  border-radius: 0.5rem; /* Arredonda as bordas do card */
 }
 
 .card.bg-danger {
   background-color: #1E3E62; /* Cor azul escuro */
+  border-radius: 0.5rem; /* Arredonda as bordas do card */
 }
 
 .card.bg-info {
   background-color: #000000; /* Cor preta */
+  border-radius: 0.5rem; /* Arredonda as bordas do card */
+}
+
+/* Adicionando estilo para links */
+.card-header a {
+  color: #FFFFFF; /* Cor branca */
+}
+
+.card-header a:hover {
+  color: #FFFFFF; /* Cor branca ao passar o mouse */
+}
+
+/* Estilo para os componentes interativos */
+.card-interactive {
+  background-color: #f8f9fa; /* Fundo claro padrão */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Transições suaves */
+  cursor: pointer; /* Cursor de mão indicando que é clicável */
+}
+
+.card-interactive:hover {
+  background-color: #d6d8db; /* Escurece o fundo ao passar o mouse */
+  color: #002855; /* Muda a cor do texto ao passar o mouse */
+}
+
+.card-interactive .card-title {
+  transition: color 0.3s ease; /* Transição suave para a cor do texto */
+}
+
+.card-interactive:hover .card-title {
+  color: #fdfdfd; /* Destaca o texto ao passar o mouse */
+  font-weight: bold;
 }

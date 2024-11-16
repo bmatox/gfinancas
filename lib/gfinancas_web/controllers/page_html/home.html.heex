@@ -1,20 +1,20 @@
-<.flash_group flash={@flash} />
-
-<!-- Adicionando a barra superior -->
-<nav class="navbar navbar-expand-lg fixed-top navbar-dark shadow-0">
-  <div class="container d-flex justify-content-center">
-    <a class="navbar-brand" href="#">GFinancas</a>
+<!-- Adicionando o navbar -->
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+  <div class="container-fluid d-flex justify-content-center align-items-center">
+    <a class="navbar-brand" href="#">GFinanças</a>
   </div>
 </nav>
 
 <!-- Container principal -->
 <div class="container my-4">
-  <h1 class="mb-4 resumo-financeiro-titulo">Resumo Financeiro</h1>
+  <h1 class="mb-4 resumo-financeiro-titulo">RESUMO FINANCEIRO</h1>
   <div class="resumo-financeiro p-4 mb-4 bg-light border rounded-lg shadow">
     <div class="row">
       <div class="col-md-4 mb-3">
         <div class="card text-white bg-success">
-          <div class="card-header">Receitas</div>
+          <div class="card-header">
+            <a href="http://localhost:4000/receitas" class="text-white">Receitas</a>
+          </div>
           <div class="card-body">
             <h5 class="card-title">R$ <%= @total_receitas %></h5>
           </div>
@@ -22,7 +22,9 @@
       </div>
       <div class="col-md-4 mb-3">
         <div class="card text-white bg-danger">
-          <div class="card-header">Despesas</div>
+          <div class="card-header">
+            <a href="http://localhost:4000/despesas" class="text-white">Despesas</a>
+          </div>
           <div class="card-body">
             <h5 class="card-title">R$ <%= @total_despesas %></h5>
           </div>
@@ -34,6 +36,24 @@
           <div class="card-body">
             <h5 class="card-title">R$ <%= @saldo %></h5>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Adicionando componentes interativos para Receitas e Despesas -->
+  <div class="row justify-content-center my-5">
+    <div class="col-md-6">
+      <div class="card card-interactive mb-3" onclick="window.location.href='http://localhost:4000/receitas';">
+        <div class="card-body text-center">
+          <h5 class="card-title">Ver receitas</h5>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card card-interactive mb-3" onclick="window.location.href='http://localhost:4000/despesas';">
+        <div class="card-body text-center">
+          <h5 class="card-title">Ver despesas</h5>
         </div>
       </div>
     </div>
