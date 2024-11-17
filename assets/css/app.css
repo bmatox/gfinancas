@@ -7,27 +7,25 @@
 
 /* Navbar Customization */
 .navbar {
-  background-color: #002855; /* Azul marinho */
+  background-color: #000000; /* Fundo preto */
   width: 100%; /* Ocupa a largura total */
 }
 
 .navbar-brand {
-  font-size: 2rem; /* Maior */
+  font-size: 2rem; /* Aumenta o tamanho do texto */
+  font-family: 'Arial Black', sans-serif; /* Altera a fonte */
   font-weight: bold; /* Negrito */
   letter-spacing: 2px; /* Espaçamento entre letras */
   color: #FF6500; /* Cor laranja para a marca */
 }
 
-.navbar-brand:hover {
-  color: #FF6500; /* Cor laranja para o hover */
-}
 
 /* Título Resumo Financeiro */
 .resumo-financeiro-titulo {
   font-size: 1.8rem; /* Maior */
   font-weight: bold; /* Negrito */
   text-align: center;
-  color: #002855; 
+  color: #000000; 
   margin-top: 120px; /* Adiciona uma margem superior para substituir o separador */
 }
 
@@ -80,7 +78,7 @@
 
 .card-interactive:hover {
   background-color: #d6d8db; /* Escurece o fundo ao passar o mouse */
-  color: #002855; /* Muda a cor do texto ao passar o mouse */
+  color: #000000; /* Muda a cor do texto ao passar o mouse */
 }
 
 .card-interactive .card-title {
@@ -89,5 +87,4 @@
 
 .card-interactive:hover .card-title {
   color: #fdfdfd; /* Destaca o texto ao passar o mouse */
-  font-weight: bold;
 }
