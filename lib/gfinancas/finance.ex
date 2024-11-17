@@ -158,4 +158,20 @@ defp ordenar_despesas(query, _), do: query
   def change_despesa(%Despesa{} = despesa, attrs \\ %{}) do
     Despesa.changeset(despesa, attrs)
   end
+  def list_receitas_mensais do
+    from(r in Receita,
+    select: %{mes: fragment("date_part('month', ?)", r.data), total: sum(r.valor)},
+    group_by: fragment("date_part('month', ?)", r.data)
+    )
+    |> Repo.all()
+  end
+
+  def list_despesas_mensais do
+    from(d in Despesa,
+      select: %{mes: fragment("date_part('month', ?)", d.data), total: sum(d.valor)},
+      group_by: fragment("date_part('month', ?)", d.data)
+    )
+    |> Repo.all()
+  end
+
 end

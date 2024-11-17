@@ -42,3 +42,123 @@ liveSocket.connect()
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
 
+document.addEventListener("DOMContentLoaded", function() {
+  // Gráfico de Receitas
+  fetch("/api/receitas_mensais")
+    .then(response => response.json())
+    .then(data => {
+      const nomesMeses = [
+        "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+        "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+      ];
+
+      data.sort((a, b) => a.mes - b.mes);
+
+      const meses = data.map(item => item.mes);
+      const valores = data.map(item => item.total);
+
+      const traceReceitas = {
+        x: meses.map(mes => nomesMeses[mes - 1]),
+        y: valores,
+        type: 'bar',
+        marker: {
+          color: 'rgba(34, 139, 34, 0.6)', // Cor translúcida verde folha para receitas
+          line: {
+            color: 'rgba(34, 139, 34, 1)',
+            width: 1
+          }
+        },
+        text: valores.map(val => `${(val / 1000).toFixed(1)}k`),
+        textposition: 'auto'
+      };
+      
+
+      const layoutReceitas = {
+        title: {
+          text: 'Receitas Mensais',
+          font: {
+            family: 'Arial, sans-serif',
+            size: 18,
+            color: 'black',
+            weight: 'bold' 
+          }
+        },
+        xaxis: {
+          title: 'Meses',
+          automargin: true
+        },
+        yaxis: {
+          title: 'Valor (R$)',
+          tickformat: '~s',
+          automargin: true
+        },
+        margin: {
+          t: 40,
+          l: 60,
+          r: 20,
+          b: 80
+        }
+      };
+
+      Plotly.newPlot('receitasMensaisChart', [traceReceitas], layoutReceitas);
+    });
+
+  // Gráfico de Despesas
+  fetch("/api/despesas_mensais")
+    .then(response => response.json())
+    .then(data => {
+      const nomesMeses = [
+        "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+        "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+      ];
+
+      data.sort((a, b) => a.mes - b.mes);
+
+      const meses = data.map(item => item.mes);
+      const valores = data.map(item => item.total);
+
+      const traceDespesas = {
+        x: meses.map(mes => nomesMeses[mes - 1]),
+        y: valores,
+        type: 'bar',
+        marker: {
+          color: 'rgba(255, 99, 132, 0.6)', // Cor diferente para despesas
+          line: {
+            color: 'rgba(255, 99, 132, 1)',
+            width: 1
+          }
+        },
+        text: valores.map(val => `${(val / 1000).toFixed(1)}k`),
+        textposition: 'auto'
+      };
+
+      const layoutDespesas = {
+        title: {
+          text: 'Despesas Mensais',
+          font: {
+            family: 'Arial, sans-serif',
+            size: 18,
+            color: 'black',
+            weight: 'bold' 
+          }
+        },
+        xaxis: {
+          title: 'Meses',
+          automargin: true
+        },
+        yaxis: {
+          title: 'Valor (R$)',
+          tickformat: '~s',
+          automargin: true
+        },
+        margin: {
+          t: 40,
+          l: 60,
+          r: 20,
+          b: 80
+        }
+      };
+
+      Plotly.newPlot('despesasMensaisChart', [traceDespesas], layoutDespesas);
+    });
+});

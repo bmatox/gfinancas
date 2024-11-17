@@ -2,6 +2,7 @@ defmodule GfinancasWeb.PageController do
   use GfinancasWeb, :controller
 
   alias Gfinancas.Finance.{Receita, Despesa}
+  alias Gfinancas.Finance
   alias Decimal
 
   def home(conn, _params) do
@@ -16,4 +17,15 @@ defmodule GfinancasWeb.PageController do
       conn: conn
     )
   end
+
+  def get_receitas_mensais(conn, _params) do
+    receitas = Finance.list_receitas_mensais()
+    json(conn, receitas)
+  end
+
+  def get_despesas_mensais(conn, _params) do
+    despesas = Finance.list_despesas_mensais()
+    json(conn, despesas)
+  end
+
 end

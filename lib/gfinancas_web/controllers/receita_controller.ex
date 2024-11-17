@@ -3,7 +3,6 @@ defmodule GfinancasWeb.ReceitaController do
 
   alias Gfinancas.Finance
   alias Gfinancas.Finance.Receita
-  alias Decimal
 
   @spec index(Plug.Conn.t(), nil | maybe_improper_list() | map()) :: Plug.Conn.t()
   def index(conn, params) do
@@ -60,20 +59,5 @@ defmodule GfinancasWeb.ReceitaController do
     conn
     |> put_flash(:info, "Receita deletada com sucesso.")
     |> redirect(to: ~p"/receitas")
-  end
-
-  def home(conn, _params) do
-    total_receitas = Receita.get_total()
-    total_despesas = Despesa.get_total()
-    saldo = Decimal.sub(total_receitas, total_despesas)
-    receitas_mensais = Finance.receitas_mensais()
-
-    render(conn, "home.html",
-      total_receitas: total_receitas,
-      total_despesas: total_despesas,
-      saldo: saldo,
-      receitas_mensais: receitas_mensais,
-      conn: conn
-    )
   end
 end
