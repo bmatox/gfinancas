@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function() {
         y: valores,
         type: 'bar',
         marker: {
-          color: 'rgba(255, 99, 132, 0.6)', // Cor diferente para despesas
+          color: 'rgba(255, 99, 132, 0.6)', 
           line: {
             color: 'rgba(255, 99, 132, 1)',
             width: 1

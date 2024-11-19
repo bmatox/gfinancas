@@ -7,16 +7,16 @@
 
 /* Navbar Customization */
 .navbar {
-  background-color: #000000; /* Fundo preto */
-  width: 100%; /* Ocupa a largura total */
+  background-color: #000000; 
+  width: 100%; 
 }
 
 .navbar-brand {
   font-size: 2rem; /* Aumenta o tamanho do texto */
-  font-family: 'Arial Black', sans-serif; /* Altera a fonte */
-  font-weight: bold; /* Negrito */
+  font-family: 'Arial Black', sans-serif; 
+  font-weight: bold; 
   letter-spacing: 2px; /* Espaçamento entre letras */
-  color: #FF6500; /* Cor laranja para a marca */
+  color: #FF6500; 
 }
 
 
@@ -34,10 +34,10 @@
   font-weight: bold;
   text-align: center; /* Centraliza os nomes */
   font-size: 1.20rem; /* Aumenta o tamanho da fonte */
-  color: #ffffff; /* Cor do texto */
-  padding: 10px; /* Adiciona um espaçamento interno */
+  color: #ffffff; 
+  padding: 10px; 
   border-radius: 8px 8px 0 0; /* Arredonda os cantos superiores */
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Adiciona uma leve sombra */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
 .card-body {
@@ -46,23 +46,23 @@
 }
 
 .card.bg-success {
-  background-color: #FF6500; /* Cor laranja */
+  background-color: #FF6500; 
   border-radius: 0.5rem; /* Arredonda as bordas do card */
 }
 
 .card.bg-danger {
-  background-color: #1E3E62; /* Cor azul escuro */
+  background-color: #1E3E62; 
   border-radius: 0.5rem; /* Arredonda as bordas do card */
 }
 
 .card.bg-info {
-  background-color: #000000; /* Cor preta */
+  background-color: #000000; 
   border-radius: 0.5rem; /* Arredonda as bordas do card */
 }
 
 /* Adicionando estilo para links */
 .card-header a {
-  color: #FFFFFF; /* Cor branca */
+  color: #FFFFFF; 
 }
 
 .card-header a:hover {
@@ -71,7 +71,7 @@
 
 /* Estilo para os componentes interativos */
 .card-interactive {
-  background-color: #f8f9fa; /* Fundo claro padrão */
+  background-color: #f8f9fa; 
   transition: background-color 0.3s ease, color 0.3s ease; /* Transições suaves */
   cursor: pointer; /* Cursor de mão indicando que é clicável */
 }
