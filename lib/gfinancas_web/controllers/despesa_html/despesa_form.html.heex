@@ -1,8 +1,11 @@
-<!-- Navbar --> 
-<nav class="navbar navbar-expand-lg fixed-top navbar-dark"> 
-  <div class="container-fluid d-flex justify-content-center align-items-center"> 
-    <a class="navbar-brand" href={~p"/"}>GFinanças</a> 
-  </div> 
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark navbar-custom">
+  <div class="container-fluid d-flex justify-content-center align-items-center">
+    <a class="navbar-brand d-flex align-items-center" href="/">
+      <img src="/images/logo01.png" width="40" height="40" class="d-inline-block align-top mr-2" alt="Logo" loading="lazy">
+      <span>GFinanças</span>
+    </a>
+  </div>
 </nav>
 
 <.simple_form :let={f} for={@changeset} action={@action}>
